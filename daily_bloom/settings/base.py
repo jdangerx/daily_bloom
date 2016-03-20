@@ -136,5 +136,3 @@ MEDIA_URL = '/media/'
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "daily_bloom"
-
-WAGTAILIMAGES_IMAGE_MODEL = "home.MovableImage"

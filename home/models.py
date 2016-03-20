@@ -15,6 +15,15 @@ class HomePage(Page):
     pass
 
 
+class PullQuote(blocks.StructBlock):
+    quote = blocks.TextBlock()
+    author = blocks.CharBlock(required=False)
+
+    class Meta:
+        icon = 'openquote'
+        template = 'home/pullquote.html'
+
+
 class BlogPage(Page):
     author = models.CharField(max_length=255)
     date = models.DateField("Post date")
@@ -22,6 +31,7 @@ class BlogPage(Page):
         ('heading', blocks.CharBlock(classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock()),
+        ('pullquote', PullQuote()),
     ])
 
     content_panels = Page.content_panels + [
@@ -30,33 +40,3 @@ class BlogPage(Page):
         StreamFieldPanel('body'),
     ]
 
-
-class MovableImage(AbstractImage):
-    css = models.TextField(blank=True)
-    admin_form_fields = (
-        'title',
-        'file',
-        'tags',
-        'css',
-        'focal_point_x',
-        'focal_point_y',
-        'focal_point_width',
-        'focal_point_height',
-    )
-
-
-class MovableImageRendition(AbstractRendition):
-    image = models.ForeignKey(MovableImage, related_name='renditions')
-
-    class Meta:
-        unique_together = (
-            ('image', 'filter', 'focal_point_key'),
-        )
-
-    @property
-    def attrs_dict(self):
-        return OrderedDict([
-            ('src', self.url),
-            ('alt', self.alt),
-            ('style', self.image.css)
-        ])
