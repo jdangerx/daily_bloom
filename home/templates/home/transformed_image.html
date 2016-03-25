@@ -1,0 +1,9 @@
+{% load wagtailimages_tags %}
+
+<div class="transformed-image-container">
+  {% image value.image original as image %}
+  <img src="{{ image.url }}"
+       width="{{ value.width }}%"
+       alt="{{ image.alt }}"
+       class="align-{{ value.alignment }} transformed-image" />
+</div>
