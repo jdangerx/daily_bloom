@@ -8,11 +8,11 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 
-from home.blocks import PullQuote, TransformedImage
+from home.blocks import PullQuote, TransformedImage, Gallery, YouTubeEmbed
 
 
 class HomePage(Page):
-    pass
+    template = 'home/home_page.html'
 
 
 class BlogPage(Page):
@@ -24,6 +24,9 @@ class BlogPage(Page):
         ('image', ImageChooserBlock()),
         ('pullquote', PullQuote()),
         ('transformed_image', TransformedImage()),
+        ('gallery', Gallery()),
+        ('HTML', blocks.field_block.RawHTMLBlock()),
+        ('YouTube', YouTubeEmbed(label="YouTube share link:")),
     ])
 
     content_panels = Page.content_panels + [
@@ -31,4 +34,3 @@ class BlogPage(Page):
         FieldPanel('date'),
         StreamFieldPanel('body'),
     ]
-

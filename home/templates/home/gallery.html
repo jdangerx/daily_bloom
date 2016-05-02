@@ -1,0 +1,11 @@
+{% load wagtailimages_tags %}
+
+<div class="img-gallery-container">
+  {% for image_block in value.images %}
+    {% image image_block original as image %}
+    <img src="{{ image.url }}"
+        width="{{ value.width }}%"
+        alt="{{ image.alt }}"
+        class="align-{{ value.alignment }} transformed-image" />
+  {% endfor %}
+</div>
